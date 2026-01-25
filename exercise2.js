@@ -1,4 +1,4 @@
-const musicians = 3; //
+const musicians = 3;
 
 if (musicians <= 0) {
     console.log("not a group");
