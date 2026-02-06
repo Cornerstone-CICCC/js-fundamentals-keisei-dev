@@ -16,16 +16,55 @@ For more information on casing styles, read Wikipedia's Special Case Styles for 
 */
 
 const makeCaze = function (input, caze) {
-  // Put your solution here
-};
+  // スタイルを配列に統一（単一文字列でも配列として扱う）
+  let styles = Array.isArray(caze) ? caze : [caze];
 
-console.log(makeCaze("this is a string", "camel")); // thisIsAString
-console.log(makeCaze("this is a string", "pascal")); // ThisIsAString
-console.log(makeCaze("this is a string", "snake")); // this_is_a_string
-console.log(makeCaze("this is a string", "kebab")); // this-is-a-string
-console.log(makeCaze("this is a string", "title")); // This Is A String
-console.log(makeCaze("this is a string", "vowel")); // thIs Is A strIng
-console.log(makeCaze("this is a string", "consonant")); // THiS iS a STRiNG
-console.log(makeCaze("this is a string", ["upper", "snake"])); // THIS_IS_A_STRING
+  // 優先順位の定義
+  const priority = {
+    camel: 1, pascal: 1, snake: 1, kebab: 1, title: 1,
+    vowel: 2, consonant: 2,
+    upper: 3, lower: 3
+  };
+
+  // 優先順位に従ってスタイルをソート
+  styles.sort((a, b) => priority[a] - priority[b]);
+
+  let currentString = input;
+
+  // 各スタイルを順番に適用
+  styles.forEach(style => {
+    switch (style) {
+      case "camel":
+        currentString = currentString.split(' ').map((w, i) => i === 0 ? w : w[0].toUpperCase() + w.slice(1)).join('');
+        break;
+      case "pascal":
+        currentString = currentString.split(' ').map(w => w[0].toUpperCase() + w.slice(1)).join('');
+        break;
+      case "snake":
+        currentString = currentString.split(' ').join('_');
+        break;
+      case "kebab":
+        currentString = currentString.split(' ').join('-');
+        break;
+      case "title":
+        currentString = currentString.split(' ').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
+        break;
+      case "vowel":
+        currentString = currentString.replace(/[aeiou]/g, l => l.toUpperCase());
+        break;
+      case "consonant":
+        currentString = currentString.replace(/[bcdfghjklmnpqrstvwxyz]/g, l => l.toUpperCase());
+        break;
+      case "upper":
+        currentString = currentString.toUpperCase();
+        break;
+      case "lower":
+        currentString = currentString.toLowerCase();
+        break;
+    }
+  });
+
+  return currentString;
+};
 
 module.exports = makeCaze;

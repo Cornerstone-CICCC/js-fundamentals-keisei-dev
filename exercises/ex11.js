@@ -27,47 +27,51 @@ Implement the functions one by one. The example inputs and outputs below will he
 // Use the value below whenever you need the value of Pi
 const PI = 3.14159;
 
+// 球体の体積
 const sphereVolume = function (radius) {
-  // Code here!
+  return (4 / 3) * PI * Math.pow(radius, 3);
 };
 
-console.log(4186 < sphereVolume(10) && sphereVolume(10) < 4189); //true
+console.log(4186 < sphereVolume(10) && sphereVolume(10) < 4189); // true
 
+// 円錐の体積
 const coneVolume = function (radius, height) {
-  // And here!
+  return (1 / 3) * PI * Math.pow(radius, 2) * height;
 };
 
-console.log(45 < coneVolume(3, 5) && coneVolume(3, 5) < 49); //true
+console.log(45 < coneVolume(3, 5) && coneVolume(3, 5) < 49); // true
 
+// 柱体の体積
 const prismVolume = function (height, width, depth) {
-  // Probably here too!
+  return height * width * depth;
 };
 
-console.log(prismVolume(3, 4, 5) === 60); //true
+console.log(prismVolume(3, 4, 5) === 60); // true
 
+// 合計体積の計算
 const totalVolume = function (solids) {
-  // Code here? Yup!
+  let total = 0;
+
+  for (const shape of solids) {
+    if (shape.type === 'sphere') {
+      total += sphereVolume(shape.radius);
+    } else if (shape.type === 'cone') {
+      total += coneVolume(shape.radius, shape.height);
+    } else if (shape.type === 'prism') {
+      total += prismVolume(shape.height, shape.width, shape.depth);
+    }
+  }
+
+  return total;
 };
 
-const largeSphere = {
-  type: "sphere",
-  radius: 40,
-};
-
-const smallSphere = {
-  type: "sphere",
-  radius: 10,
-};
-
-const cone = {
-  type: "cone",
-  radius: 3,
-  height: 5,
-};
-
+// --- テスト用データ ---
+const largeSphere = { type: "sphere", radius: 40 };
+const smallSphere = { type: "sphere", radius: 10 };
+const cone = { type: "cone", radius: 3, height: 5 };
 const duck = [largeSphere, smallSphere, cone];
 
-console.log(272000 < totalVolume(duck) && totalVolume(duck) < 275000); //true
+console.log(272000 < totalVolume(duck) && totalVolume(duck) < 275000); // true
 
 module.exports = {
   totalVolume,

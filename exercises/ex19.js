@@ -65,3 +65,36 @@ Instruction
 Create a function generateBoard which will return a nested array representing the board, containing the location of two queens.
 Create a function called queenThreat that will indicate whether or not the two queens are positioned so that they attack each other.
 */
+
+const generateBoard = function(whiteQueen, blackQueen) {
+  let board = [];
+  for (let i = 0; i < 8; i++) {
+    board.push([0, 0, 0, 0, 0, 0, 0, 0]);
+  }
+  board[whiteQueen[0]][whiteQueen[1]] = 1;
+  board[blackQueen[0]][blackQueen[1]] = 1;
+  return board;
+};
+
+const queenThreat = function(generatedBoard) {
+  let queens = [];
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      if (generatedBoard[r][c] === 1) {
+        queens.push([r, c]);
+      }
+    }
+  }
+
+  const [r1, c1] = queens[0];
+  const [r2, c2] = queens[1];
+
+  const isSameRow = r1 === r2;
+  const isSameCol = c1 === c2;
+  const isDiagonal = Math.abs(r1 - r2) === Math.abs(c1 - c2);
+
+  return isSameRow || isSameCol || isDiagonal;
+};
+
+// 修正ポイント：複数の関数をオブジェクトとしてエクスポートする
+module.exports = { generateBoard, queenThreat };

@@ -9,24 +9,23 @@ Create a function named organizeInstructors that will receive an array of instru
 */
 
 const organizeInstructors = function (instructors) {
-  // Put your solution here
-};
+  const result = {};
 
-console.log(
-  organizeInstructors([
-    { name: "Samuel", course: "iOS" },
-    { name: "Victoria", course: "Web" },
-    { name: "Karim", course: "Web" },
-    { name: "Donald", course: "Web" },
-  ])
-); // { iOS: ["Samuel"], Web: ["Victoria", "Karim", "Donald"]}
-console.log(
-  organizeInstructors([
-    { name: "Brendan", course: "Blockchain" },
-    { name: "David", course: "Web" },
-    { name: "Martha", course: "iOS" },
-    { name: "Carlos", course: "Web" },
-  ])
-); //{ Blockchain: ["Brendan"], Web: ["David", "Carlos"], iOS: ["Martha"]}
+  for (const instructor of instructors) {
+    const course = instructor.course;
+    const name = instructor.name;
+
+    // もし結果オブジェクトにまだそのコース名が存在しない場合、
+    // 空の配列を作成して初期化する
+    if (!result[course]) {
+      result[course] = [];
+    }
+
+    // 対応するコースの配列に講師名を追加する
+    result[course].push(name);
+  }
+
+  return result;
+};
 
 module.exports = organizeInstructors;

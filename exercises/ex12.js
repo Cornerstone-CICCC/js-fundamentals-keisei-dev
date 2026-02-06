@@ -21,45 +21,26 @@ This one is a doozy! We might want to start by creating a helper function called
 */
 
 const chooseRecipe = function (bakeryA, bakeryB, recipes) {
-  // Code here!
+  
+  // ヘルパー関数: ベーカリーの在庫にレシピの材料が含まれているかチェックする
+  const ingredientCheck = function (bakery, ingredients) {
+    for (let ingredient of ingredients) {
+      if (bakery.includes(ingredient)) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  // 各レシピを一つずつ確認する
+  for (let recipe of recipes) {
+    // ベーカリーAがレシピの材料の「どれか」を持っており、
+    // かつベーカリーBもレシピの材料の「どれか」を持っている場合
+    if (ingredientCheck(bakeryA, recipe.ingredients) && 
+        ingredientCheck(bakeryB, recipe.ingredients)) {
+      return recipe.name;
+    }
+  }
 };
-
-let bakeryA = ["saffron", "eggs", "tomato paste", "coconut", "custard"];
-let bakeryB = ["milk", "butter", "cream cheese"];
-let recipes = [
-  {
-    name: "Coconut Sponge Cake",
-    ingredients: ["coconut", "cake base"],
-  },
-  {
-    name: "Persian Cheesecake",
-    ingredients: ["saffron", "cream cheese"],
-  },
-  {
-    name: "Custard Surprise",
-    ingredients: ["custard", "ground beef"],
-  },
-];
-
-console.log(chooseRecipe(bakeryA, bakeryB, recipes)); //Persian Cheesecake
-
-bakeryA = ["potatoes", "bay leaf", "raisins"];
-bakeryB = ["red bean", "dijon mustard", "apples"];
-recipes = [
-  {
-    name: "Potato Ganache",
-    ingredients: ["potatoes", "chocolate"],
-  },
-  {
-    name: "Sweet Fish",
-    ingredients: ["anchovies", "honey"],
-  },
-  {
-    name: "Nima's Famous Dijon Raisins",
-    ingredients: ["dijon mustard", "raisins"],
-  },
-];
-
-console.log(chooseRecipe(bakeryA, bakeryB, recipes)); //Nima's Famous Dijon Raisins
 
 module.exports = chooseRecipe;

@@ -10,24 +10,21 @@ Create a function named instructorWithLongestName that will receive an array of 
 */
 
 const instructorWithLongestName = function (instructors) {
-  // Put your solution here
+  // 1. 最初の人を暫定チャンピオンにする
+  let longest = instructors[0];
+
+  // 2. 1人ずつ順番に見ていく
+  for (let person of instructors) {
+    // 3. もし「今の人の名前」の長さが「チャンピオンの名前」より長ければ
+    // .length は文字の長さを教えてくれます
+    if (person.name.length > longest.name.length) {
+      // 4. チャンピオン交代！
+      longest = person;
+    }
+  }
+
+  // 5. 最後に残った一番長い名前の人を返す
+  return longest;
 };
-
-console.log(
-  instructorWithLongestName([
-    { name: "Samuel", course: "Mobile" },
-    { name: "Jeremiah", course: "Web" },
-    { name: "Ophilia", course: "Web" },
-    { name: "Donald", course: "Web" },
-  ])
-); //{name: "Jeremiah", course: "Web"}
-
-console.log(
-  instructorWithLongestName([
-    { name: "Matthew", course: "Web" },
-    { name: "David", course: "Mobile" },
-    { name: "Domascus", course: "Web" },
-  ])
-); //{name: "Domascus", course: "Web"}
 
 module.exports = instructorWithLongestName;

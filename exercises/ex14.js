@@ -23,11 +23,30 @@ Penny (1¢)
 */
 
 const calculateChange = function (total, cash) {
-  // Your code here
-};
+  let changeAmount = cash - total;
+  const result = {};
 
-console.log(calculateChange(1787, 2000)); // { twoDollar: 1, dime: 1, penny: 3 }
-console.log(calculateChange(2623, 4000)); // { tenDollar: 1, twoDollar: 1, oneDollar: 1, quarter: 3, penny: 2 }
-console.log(calculateChange(501, 1000)); // { twoDollar: 2, quarter: 3, dime: 2, penny: 4 }
+  const denominations = [
+    { name: "twentyDollar", value: 2000 },
+    { name: "tenDollar",    value: 1000 },
+    { name: "fiveDollar",   value: 500 },
+    { name: "toonie",       value: 200 }, // twoDollarから変更
+    { name: "loonie",       value: 100 }, // oneDollarから変更
+    { name: "quarter",      value: 25 },
+    { name: "dime",         value: 10 },
+    { name: "nickel",       value: 5 },
+    { name: "penny",        value: 1 }
+  ];
+
+  for (const denom of denominations) {
+    if (changeAmount >= denom.value) {
+      const count = Math.floor(changeAmount / denom.value);
+      result[denom.name] = count;
+      changeAmount %= denom.value;
+    }
+  }
+
+  return result;
+};
 
 module.exports = calculateChange;

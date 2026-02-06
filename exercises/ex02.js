@@ -6,13 +6,22 @@ Create a function named conditionalSum that will be given an array of numbers an
 
 */
 
-const conditionalSum = function (values, condition) {
-  // Your code here
-};
+const conditionalSum = (values, condition) => {
+  let sum = 0;
 
-console.log(conditionalSum([1, 2, 3, 4, 5], "even")); // 6
-console.log(conditionalSum([1, 2, 3, 4, 5], "odd")); // 9
-console.log(conditionalSum([13, 88, 12, 44, 99], "even")); // 144
-console.log(conditionalSum([], "odd")); // 0
+  // 配列を一つずつ取り出す
+  for (let num of values) {
+    // 偶数の判定: num % 2 === 0
+    // 奇数の判定: num % 2 !== 0
+    
+    if (condition === "even" && num % 2 === 0) {
+      sum += num;
+    } else if (condition === "odd" && num % 2 !== 0) {
+      sum += num;
+    }
+  }
+
+  return sum;
+};
 
 module.exports = conditionalSum;

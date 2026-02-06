@@ -9,11 +9,21 @@ Create a function named camelCase that will convert a string to camel case, and 
 */
 
 const camelCase = function (input) {
-  // Your code here
-};
+  // 1. スペースで分割して単語の配列を作る
+  const words = input.split(" ");
+  let result = "";
 
-console.log(camelCase("this is a string")); // thisIsAString
-console.log(camelCase("loopy cornerstone")); //loopyCornerstone
-console.log(camelCase("supercalifragalisticexpialidocious")); // supercalifragalisticexpialidocious
+  for (let i = 0; i < words.length; i++) {
+    if (i === 0) {
+      // 最初の単語はすべて小文字
+      result += words[i].toLowerCase();
+    } else {
+      // 2番目以降の単語：先頭を大文字 + 残りを小文字
+      result += words[i].charAt(0).toUpperCase() + words[i].slice(1).toLowerCase();
+    }
+  }
+
+  return result;
+};
 
 module.exports = camelCase;

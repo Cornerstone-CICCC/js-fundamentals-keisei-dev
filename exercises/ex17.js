@@ -22,11 +22,25 @@ Create a function named urlDecode that will receive a URL encoded string, and re
 */
 
 const urlDecode = function (text) {
-  // Put your solution here
-};
+  const result = {};
+  
+  // 1. & で分割して各ペアの配列にする
+  // 例: ["city=Vancouver", "weather=lots%20of%20rain"]
+  const pairs = text.split("&");
 
-console.log(urlDecode("duck=rubber")); //{duck: "rubber"}
-console.log(urlDecode("city=Vancouver&weather=lots%20of%20rain")); // {city: "Vancouver", weather: "lots of rain"}
-console.log(urlDecode("city=Vancouver&weather=lots%20of%20rain").weather); // "lots of rain"
+  for (const pair of pairs) {
+    // 2. = で分割してキーと値に分ける
+    const [key, value] = pair.split("=");
+
+    // 3. %20 を正規表現を使ってすべてのスペース（" "）に置換する
+    // /%20/g の 'g' は global フラグで、見つかったものすべてを置換します
+    const decodedValue = value.replace(/%20/g, " ");
+
+    // 4. 結果オブジェクトに格納
+    result[key] = decodedValue;
+  }
+
+  return result;
+};
 
 module.exports = urlDecode;

@@ -19,11 +19,24 @@ Use some sort of looping. Do Not use String.prototype.replace
 */
 
 const urlEncode = function (text) {
-  // Put your solution here
-};
+  // 1. 前後の余計なスペースを削除する
+  const trimmedText = text.trim();
+  
+  // 2. 結果を入れるための空の箱
+  let result = "";
 
-console.log(urlEncode("cornerstone college")); //cornerstone%20college
-console.log(urlEncode(" cornerstone college ")); //cornerstone%20college
-console.log(urlEncode("blue is greener than purple for sure")); //blue%20is%20greener%20than%20purple%20for%20sure
+  // 3. 1文字ずつループで確認
+  for (let char of trimmedText) {
+    // 4. もし文字がスペースだったら
+    if (char === " ") {
+      result += "%20"; // %20 を合体させる
+    } else {
+      result += char;  // 普通の文字をそのまま合体させる
+    }
+  }
+
+  // 5. 完成した文字列を返す
+  return result;
+};
 
 module.exports = urlEncode;
