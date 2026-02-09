@@ -213,6 +213,6 @@
     "yocto-queue": "^0.1.0"
   },
   "devDependencies": {
-    "jest": "^28.1.0"
+    "jest": "^28.1.3"
   }
 }
